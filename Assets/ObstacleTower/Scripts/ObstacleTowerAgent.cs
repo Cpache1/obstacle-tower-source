@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAgents;
@@ -8,9 +8,9 @@ using MLAgents;
 /// Agent logic. Responsible for moving agent, assigning rewards, and going between floors.
 /// </summary>
 [RequireComponent(typeof(AgentAnimator))]
-public class ObstacleTowerAgentPrevious : Agent
+public class ObstacleTowerAgent : Agent
 {
-    public Brain playerBrain;
+    //public Brain playerBrain;
     public FloorBuilder floorBuilder;
     public KeyController keyController;
     public Transform cameraPivot; //the object that contains the camera
@@ -20,7 +20,7 @@ public class ObstacleTowerAgentPrevious : Agent
     public float cameraFollowSpeed;
     public bool denseReward;
 
-    [Header("Episode Time Config")] 
+    [Header("Episode Time Config")]
     public int floorTimeBonus;
     public int floorTimeStart;
     public int orbBonus;
@@ -111,7 +111,7 @@ public class ObstacleTowerAgentPrevious : Agent
 
     private void OnCollisionEnter(Collision col)
     {
-        if (IsDone()) return;
+        if (done) return;
         _collisions.Add(col);
     }
 
@@ -280,7 +280,7 @@ public class ObstacleTowerAgentPrevious : Agent
         }
     }
 
-    public override void AgentAction(float[] vectorAction, string textAction)
+    public override void AgentAction(float[] vectorAction)
     {
         foreach (var col in _collisions)
         {
@@ -293,7 +293,7 @@ public class ObstacleTowerAgentPrevious : Agent
 
         _collisions.Clear();
 
-        if (!IsDone())
+        if (!m_Info.done)
         {
             CheckOutOfBounds();
             CheckTimeout();
@@ -308,7 +308,7 @@ public class ObstacleTowerAgentPrevious : Agent
         uIController.floorText.text = floorBuilder.floorNumber.ToString();
         uIController.timeText.text = episodeTime.ToString();
     }
-    
+
     public void ReparentAgent()
     {
         if (transform.parent != floorBuilder.transform)
@@ -330,7 +330,7 @@ public class ObstacleTowerAgentPrevious : Agent
         {
             Debug.Log("You reached floor: " + floorBuilder.floorNumber);
         }
-        
+
         ReparentAgent();
         episodeTime = floorTimeStart;
         var perspective = floorBuilder.environmentParameters.agentPerspective;

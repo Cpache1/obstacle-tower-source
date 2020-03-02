@@ -246,7 +246,8 @@ PrefabInstance:
       propertyPath: m_TagString
       value: playerCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114251617447028410, guid: 21ba85adf5bc8414881a95874df50975, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 21ba85adf5bc8414881a95874df50975, type: 3}
 --- !u!1 &211491110 stripped
 GameObject:
@@ -278,6 +279,21 @@ MonoBehaviour:
   m_BehaviorName: ObstacleTower
   m_TeamID: 0
   m_UseChildSensors: 1
+--- !u!114 &211491112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211491110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  RepeatAction: 1
+  offsetStep: 0
 --- !u!1001 &376899731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -692,18 +708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UsePipelineSettings: 1
---- !u!114 &883513242 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114219945159577816, guid: 21ba85adf5bc8414881a95874df50975,
-    type: 3}
-  m_PrefabInstance: {fileID: 211491109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1dd1d8a0c0a460bba6d073ddb2bb98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1135590186 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1533039950037032, guid: 435159b1fbce442c4a0bd433f1da9117,
@@ -770,69 +774,26 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1774455169}
-  - component: {fileID: 1774455168}
+  - component: {fileID: 1774455167}
   m_Layer: 0
-  m_Name: ObstacleTower-v3.1
+  m_Name: ObstacleTowerSettings
   m_TagString: academy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1774455168
+--- !u!114 &1774455167
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114507986723963556, guid: 917775117aa184c918808616fb2110a6,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774455166}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19039a5d777ad44878ae542b5475c040, type: 3}
+  m_Script: {fileID: 11500000, guid: ea3e637161c237543adfe63b1dd1f1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  broadcastHub:
-    broadcastingBrains:
-    - {fileID: 11400000, guid: 30dcb8af9a30b470aad9b2550b4193ce, type: 2}
-    m_BrainsToControl:
-    - {fileID: 11400000, guid: 30dcb8af9a30b470aad9b2550b4193ce, type: 2}
-  m_TrainingConfiguration:
-    width: 80
-    height: 80
-    qualityLevel: 1
-    timeScale: 100
-    targetFrameRate: -1
-  m_InferenceConfiguration:
-    width: 1280
-    height: 720
-    qualityLevel: 0
-    timeScale: 1
-    targetFrameRate: -1
-  resetParameters:
-    m_ResetParameters:
-    - key: tower-seed
-      value: -1
-    - key: starting-floor
-      value: 0
-    - key: dense-reward
-      value: 1
-    - key: lighting-type
-      value: 1
-    - key: visual-theme
-      value: 1
-    - key: agent-perspective
-      value: 1
-    - key: allowed-rooms
-      value: 2
-    - key: allowed-modules
-      value: 2
-    - key: allowed-floors
-      value: 2
-    - key: total-floors
-      value: 100
-    - key: default-theme
-      value: 0
-  floor: {fileID: 883513242}
 --- !u!4 &1774455169
 Transform:
   m_ObjectHideFlags: 0
