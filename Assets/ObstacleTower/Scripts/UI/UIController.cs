@@ -7,7 +7,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     FloorBuilder floorBuilder;
-    private ObstacleTowerAcademy academy;
+    //private ObstacleTowerAcademy academy;
     public GameObject killScreenPanel;
     public GameObject devUIPanel;
     public TMP_Text floorText;
@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
     void Awake()
     {
         floorBuilder = FindObjectOfType<FloorBuilder>();
-        academy = FindObjectOfType<ObstacleTowerAcademy>();
+        //academy = FindObjectOfType<ObstacleTowerAcademy>();
         killScreenPanel.SetActive(false);
     }
 

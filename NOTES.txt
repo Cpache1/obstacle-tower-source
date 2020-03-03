@@ -1,0 +1,2 @@
+-> Done() needs to be called after giving the reward always.
+-> Keep Dense Reward true!

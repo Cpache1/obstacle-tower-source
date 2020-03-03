@@ -40,14 +40,14 @@ public class ObstacleTowerAgent : Agent
 
     [HideInInspector] public UIController uIController;
 
-    public void SetTraining()
+    public void SetTraining() //this is not being used at the moment
     {
         cameraAgent.enabled = false;
         cameraPlayer.enabled = false;
         canvasPlayer.enabled = false;
     }
 
-    public void SetInference()
+    public void SetInference() //this is not being used at the moment
     {
         cameraAgent.enabled = false;
         cameraPlayer.enabled = true;
@@ -111,7 +111,7 @@ public class ObstacleTowerAgent : Agent
 
     private void OnCollisionEnter(Collision col)
     {
-        if (done) return;
+        if (GetIsDone()) return;
         _collisions.Add(col);
     }
 
@@ -293,7 +293,7 @@ public class ObstacleTowerAgent : Agent
 
         _collisions.Clear();
 
-        if (!m_Info.done)
+        if (!GetIsDone())
         {
             CheckOutOfBounds();
             CheckTimeout();

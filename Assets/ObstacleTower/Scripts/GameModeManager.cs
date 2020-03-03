@@ -15,7 +15,7 @@ public class GameModeManager : MonoBehaviour
 	private void Awake ()
 	{
 		var agent = GameObject.FindWithTag("agent").GetComponent<ObstacleTowerAgent>();
-		var academy = GameObject.FindWithTag("academy").GetComponent<ObstacleTowerAcademy>();
+		//var academy = GameObject.FindWithTag("academy").GetComponent<ObstacleTowerAcademy>();
 		var devTools = GameObject.FindWithTag("debug");
 
 		var portArgExists = Environment.GetCommandLineArgs().Contains("--port");
@@ -26,7 +26,7 @@ public class GameModeManager : MonoBehaviour
 			//academy.broadcastHub.Clear();
 			//agent.brain = agent.playerBrain;
 		}
-		academy.enabled = true;
+		//academy.enabled = true;
 		agent.enabled = true;
 
 		if (!Application.isEditor)

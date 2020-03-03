@@ -11,6 +11,7 @@ public class FloorBuilder : MonoBehaviour
     [HideInInspector] public int towerNumber;
     [HideInInspector] public int startingFloorNumber;
     [HideInInspector] public EnvironmentParameters environmentParameters;
+    
 
     [Header("Linked Objects")] 
     public GameObject roomPrefab;
@@ -28,6 +29,7 @@ public class FloorBuilder : MonoBehaviour
 
     public void Initialize()
     {
+        
         floorGenerator = new FloorGenerator(environmentParameters);
         roomBuilder = roomPrefab.GetComponent<RoomBuilder>();
         hasInitialized = true;

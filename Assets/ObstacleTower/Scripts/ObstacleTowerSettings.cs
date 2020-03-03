@@ -17,13 +17,21 @@ public class ObstacleTowerSettings : MonoBehaviour
 
     private ObstacleTowerAgent agentComponent;
 
+    //This has been added as part of migration by me (Cristiana)
+    IFloatProperties m_ResetParameters;
+
     private void Awake()
     {
+
+        m_ResetParameters = Academy.Instance.FloatProperties;
+
+        //from Initialize(Academy)
         floor.environmentParameters = new EnvironmentParameters();
 
         agentComponent = FindObjectOfType<ObstacleTowerAgent>();
         GraphicsSettings.useScriptableRenderPipelineBatching = true;
         
+        //added from previous virtual method reset
         Academy.Instance.OnEnvironmentReset += EnvironmentReset;
     }
 
@@ -31,19 +39,20 @@ public class ObstacleTowerSettings : MonoBehaviour
     public void EnvironmentReset()
     {
         Debug.Log("Academy resetting");
-        agentComponent.denseReward = Mathf.Clamp((int)resetParameters["dense-reward"], 0, 1) != 0;
-        if (GetIsInference())
-        {
-            EnableInference();
-        }
-        else
-        {
-            EnableTraining();
-        }
+        agentComponent.denseReward = Mathf.Clamp((int)m_ResetParameters.GetPropertyWithDefault("dense-reward", 1), 0, 1) != 0;
+        //you can't check at the moment whether you're doing inference or not...
+        //if (GetIsInference())
+        //{
+        //    EnableInference();
+        //}
+        //else
+        //{
+        //    EnableTraining();
+        //}
 
-        var towerSeed = Mathf.Clamp((int)resetParameters["tower-seed"], -1, MaxSeed);
-        var totalFloors = Mathf.Clamp((int)resetParameters["total-floors"], 1, MaxFloors);
-        var startingFloor = Mathf.Clamp((int)resetParameters["starting-floor"], 0, totalFloors);
+        var towerSeed = Mathf.Clamp((int)m_ResetParameters.GetPropertyWithDefault("tower-seed", -1), -1, MaxSeed);
+        var totalFloors = Mathf.Clamp((int)m_ResetParameters.GetPropertyWithDefault("total-floors", 100), 1, MaxFloors);
+        var startingFloor = Mathf.Clamp((int)m_ResetParameters.GetPropertyWithDefault("starting-floor", 0), 0, totalFloors);
 
         UpdateEnvironmentParameters();
 
@@ -79,81 +88,81 @@ public class ObstacleTowerSettings : MonoBehaviour
         floor.environmentParameters.defaultTheme = VisualTheme.Ancient;
     }
 
-    private void EnableInference()
+    private void EnableInference() //not called anymore
     {
-        SetIsInference(true);
+        //SetIsInference(true);
         agentComponent.SetInference();
-        Time.captureFramerate = 0;
+        //Time.captureFramerate = 0;
     }
 
-    private void EnableTraining()
+    private void EnableTraining() //not called anymore
     {
-        SetIsInference(false);
+        //SetIsInference(false);
         agentComponent.SetTraining();
-        Time.captureFramerate = 60;
+        //Time.captureFramerate = 60;
     }
 
 
 
     private void UpdateEnvironmentParameters()
     {
-        if (Enum.IsDefined(typeof(LightingType), (int)resetParameters["lighting-type"]))
+        if (Enum.IsDefined(typeof(LightingType), (int)m_ResetParameters.GetPropertyWithDefault("lighting-type", 1)))
         {
-            floor.environmentParameters.lightingType = (LightingType)resetParameters["lighting-type"];
+            floor.environmentParameters.lightingType = (LightingType)m_ResetParameters.GetPropertyWithDefault("lighting-type", 1);
         }
         else
         {
             Debug.Log("lighting-type outside of valid range. Using default value.");
         }
 
-        if (Enum.IsDefined(typeof(VisualThemeParameter), (int)resetParameters["visual-theme"]))
+        if (Enum.IsDefined(typeof(VisualThemeParameter), (int)m_ResetParameters.GetPropertyWithDefault("visual-theme", 1)))
         {
-            floor.environmentParameters.themeParameter = (VisualThemeParameter)resetParameters["visual-theme"];
+            floor.environmentParameters.themeParameter = (VisualThemeParameter)m_ResetParameters.GetPropertyWithDefault("visual-theme", 1);
         }
         else
         {
             Debug.Log("visual-theme outside of valid range. Using default value.");
         }
 
-        if (Enum.IsDefined(typeof(AgentPerspective), (int)resetParameters["agent-perspective"]))
+        if (Enum.IsDefined(typeof(AgentPerspective), (int)m_ResetParameters.GetPropertyWithDefault("agent-perspective", 1)))
         {
-            floor.environmentParameters.agentPerspective = (AgentPerspective)resetParameters["agent-perspective"];
+            floor.environmentParameters.agentPerspective = (AgentPerspective)m_ResetParameters.GetPropertyWithDefault("agent-perspective", 1);
         }
         else
         {
             Debug.Log("agent-perspective outside of valid range. Using default value.");
         }
 
-        if (Enum.IsDefined(typeof(AllowedRoomTypes), (int)resetParameters["allowed-rooms"]))
+        if (Enum.IsDefined(typeof(AllowedRoomTypes), (int)m_ResetParameters.GetPropertyWithDefault("allowed-rooms", 2)))
         {
-            floor.environmentParameters.allowedRoomTypes = (AllowedRoomTypes)resetParameters["allowed-rooms"];
+            floor.environmentParameters.allowedRoomTypes = (AllowedRoomTypes)m_ResetParameters.GetPropertyWithDefault("allowed-rooms", 2);
         }
         else
         {
             Debug.Log("allowed-rooms outside of valid range. Using default value.");
         }
 
-        if (Enum.IsDefined(typeof(AllowedRoomModules), (int)resetParameters["allowed-modules"]))
+        if (Enum.IsDefined(typeof(AllowedRoomModules), (int)m_ResetParameters.GetPropertyWithDefault("allowed-modules", 2)))
         {
-            floor.environmentParameters.allowedRoomModules = (AllowedRoomModules)resetParameters["allowed-modules"];
+            floor.environmentParameters.allowedRoomModules = (AllowedRoomModules)m_ResetParameters.GetPropertyWithDefault("allowed-modules", 2);
         }
         else
         {
             Debug.Log("allowed-modules outside of valid range. Using default value.");
         }
 
-        if (Enum.IsDefined(typeof(AllowedFloorLayouts), (int)resetParameters["allowed-modules"]))
+        if (Enum.IsDefined(typeof(AllowedFloorLayouts), (int)m_ResetParameters.GetPropertyWithDefault("allowed-modules", 2)))
         {
-            floor.environmentParameters.allowedFloorLayouts = (AllowedFloorLayouts)resetParameters["allowed-floors"];
+            floor.environmentParameters.allowedFloorLayouts = (AllowedFloorLayouts)m_ResetParameters.GetPropertyWithDefault("allowed-floors", 2);
         }
         else
         {
             Debug.Log("allowed-floors outside of valid range. Using default value.");
         }
 
-        if (Enum.IsDefined(typeof(VisualTheme), (int)resetParameters["default-theme"]))
+        if (Enum.IsDefined(typeof(VisualTheme), (int)m_ResetParameters.GetPropertyWithDefault("default-theme", 0)))
         {
-            floor.environmentParameters.defaultTheme = (VisualTheme)resetParameters["default-theme"];
+            floor.environmentParameters.defaultTheme = (VisualTheme)m_ResetParameters.GetPropertyWithDefault("default-theme", 0);
         }
         else
         {
