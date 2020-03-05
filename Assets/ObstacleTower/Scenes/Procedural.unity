@@ -256,6 +256,11 @@ PrefabInstance:
       propertyPath: DecisionPeriod
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3184710382060578660, guid: 21ba85adf5bc8414881a95874df50975,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114251617447028410, guid: 21ba85adf5bc8414881a95874df50975, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 21ba85adf5bc8414881a95874df50975, type: 3}

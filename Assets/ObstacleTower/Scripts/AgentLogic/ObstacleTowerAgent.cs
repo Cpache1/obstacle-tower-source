@@ -188,6 +188,45 @@ public class ObstacleTowerAgent : Agent
         }
     }
 
+    public override float[] Heuristic()
+    {
+        var action = new float[4];
+        //forwardAction
+        if (Input.GetKey(KeyCode.W))
+        {
+            action[0] = 1f;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            action[0] = 2f;
+        }
+
+        //lateralAction
+        if (Input.GetKey(KeyCode.D)) //right
+        {
+            action[3] = 1f;
+        }
+        if (Input.GetKey(KeyCode.A)) //left
+        {
+            action[3] = 2f;
+        }
+
+        //jumpAction
+        action[2] = Input.GetKey(KeyCode.Space) ? 1.0f : 0.0f;
+
+        //rotateAction
+        if (Input.GetKey(KeyCode.L))
+        {
+            action[1] = 2f;
+        }
+        if (Input.GetKey(KeyCode.K))
+        {
+            action[1] = 1f;
+        }
+        
+        return action;
+    }
+
     private void MoveAgent(float[] act)
     {
         dirToGo = Vector3.zero;
@@ -340,6 +379,7 @@ public class ObstacleTowerAgent : Agent
         AgentNewFloor();
         uIController.seedText.text = floorBuilder.towerNumber.ToString();
     }
+
 
     public void ToggleTimer()
     {
